@@ -6,6 +6,7 @@
 
 /*
  *  Twister effect
+ *  2019, Giulio Zausa
  *  gcc twister.cc -o twister -l stdc++ -l SDL2 -std=c++17 -Ofast
  */
 

@@ -8,6 +8,7 @@
 
 /*
  *  Spinning 3D Wireframe Cube
+ *  2019, Giulio Zausa
  *  gcc cube.cc -o cube -l stdc++ -l SDL2 -std=c++17 -Ofast
  */
 
