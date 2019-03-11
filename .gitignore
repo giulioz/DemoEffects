@@ -1,5 +1,6 @@
 a.out
 a.out.*
+*.dSYM
 spiral
 twister
 cube

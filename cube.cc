@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <algorithm>
 #include <array>
 #include <cmath>
 #include <tuple>
@@ -81,10 +82,8 @@ struct Matrix4 {
 
   static auto perspective() {
     return Matrix4{
-        1.0, 0.0, 0.0, 0.0,
-        0.0, 1.0, 0.0, 0.0,
-        0.0, 0.0, 1.0, 0.0,
-        0.0, 0.0, 1.0, 0.0,
+        1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0,
+        0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0,
     };
   }
 
@@ -210,11 +209,14 @@ template <size_t nVertices, size_t nIndices>
 void drawMeshWireframe(uint32_t *buf, uint32_t color,
                        const Mesh<nVertices, nIndices> &mesh,
                        Matrix4 transform = Matrix4::identity()) {
+  auto transformedV = std::array<Vector4, nVertices>{};
+  std::transform(
+      mesh.vertices.begin(), mesh.vertices.end(), transformedV.begin(),
+      [&](auto v) { return Matrix4::transformVector4(v, transform); });
+
   auto drawEdge = [&](auto a, auto b) {
-    const auto vA = Matrix4::transformVector4(mesh.vertices[a], transform);
-    const auto [px, py] = toScreenSpace<WIDTH, HEIGHT>(vA);
-    const auto vB = Matrix4::transformVector4(mesh.vertices[b], transform);
-    const auto [dx, dy] = toScreenSpace<WIDTH, HEIGHT>(vB);
+    const auto [px, py] = toScreenSpace<WIDTH, HEIGHT>(transformedV[a]);
+    const auto [dx, dy] = toScreenSpace<WIDTH, HEIGHT>(transformedV[b]);
     line(buf, color, px, py, dx, dy);
   };
 
