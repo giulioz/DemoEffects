@@ -6,7 +6,7 @@ Various demoscene effects, written in C++ with output to SDL window.
 - Wireframe Cube
 - 3D Checkers
 
-Instructions for compiling on beginning of source file.
+Instructions for compiling at the beginning of every source file.
 
 ![checkers](images/checkers.png)
 
