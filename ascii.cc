@@ -3,6 +3,7 @@
 #include <ncurses.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include <unistd.h>
 
 #define WIDTH 120
@@ -16,10 +17,10 @@ int main() {
 
   float time = 0.0;
   while (1) {
-    wnd.startDraw();
+    // wnd.startDraw();
 
-    for (int x = 0; x < WIDTH; x++) {
-      for (int y = 0; y < HEIGHT; y++) {
+    for (int y = 0; y < HEIGHT; y++) {
+      for (int x = 0; x < WIDTH; x++) {
         float px = (float)(x - WIDTH / 2) / WIDTH;
         float py = (float)(-y + HEIGHT / 2) / HEIGHT;
         float d1 =
@@ -31,8 +32,7 @@ int main() {
     }
 
     wnd.endDraw();
-    usleep(30000);
-    time += 30;
+    time += 1;
   }
 
   return 0;

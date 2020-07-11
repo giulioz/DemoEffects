@@ -8,6 +8,8 @@ public:
 
   ASCIIBuffer() {
     initscr();
+    start_color();
+    nodelay(stdscr, TRUE);
     noecho();
     curs_set(FALSE);
 
@@ -18,7 +20,12 @@ public:
 
   void startDraw() { clear(); }
 
-  void endDraw() { refresh(); }
+  void endDraw() {
+    refresh();
+    timeout(30);
+  }
 
   void print(const int x, const int y, const char c) { mvaddch(y, x, c); }
+
+  void printLine(const int y, const chtype *line) { mvaddchstr(y, 0, line); }
 };
